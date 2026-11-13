@@ -197,7 +197,7 @@ export const portfolioData = {
         ],
       },
       tags: ["Python", "Legal-BERT", "T5 RAG", "FAISS", "BM25", "Cross-Encoder"],
-      github: "https://github.com/umashankar1735",
+      github: "https://github.com/umashankar1735/unified-digital-companion",
       hasPublication: true,
     },
     {
@@ -276,7 +276,7 @@ export const portfolioData = {
         ],
       },
       tags: ["PyTorch", "ResNet-50", "BiLSTM", "Attention", "Flask", "React UI"],
-      github: "https://github.com/umashankar1735",
+      github: "https://github.com/umashankar1735/spatio-temporal-video-summarization",
     },
     {
       id: "ai-guardian",
@@ -302,7 +302,7 @@ export const portfolioData = {
         ],
       },
       tags: ["React Native", "TypeScript", "Node.js", "MongoDB", "Socket.IO", "FastAPI"],
-      github: "https://github.com/umashankar1735",
+      github: "https://github.com/umashankar1735/ai-for-women-safety",
     },
     {
       id: "deepfake-detect",
@@ -378,7 +378,7 @@ export const portfolioData = {
         ],
       },
       tags: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT Auth", "REST APIs"],
-      github: "https://github.com/umashankar1735",
+      github: "https://github.com/umashankar1735/fitlogi-fitness-app",
     },
     {
       id: "carbonwise",
