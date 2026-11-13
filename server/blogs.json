@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "title": "Sub-500ms Grounded RAG with InLegalBERT & Cross-Encoder Reranking on IndicLegalQA",
+    "author_name": "K. Sai Uma Shankar",
+    "timestamp": 1761800000000,
+    "image_url": "/assets/project-rag.jpg",
+    "content": "## The Problem with Generic LLMs in Legal Jurisdictions\nIn sensitive institutional and legal settings, generic foundational models suffer from severe hallucinations, inability to cite statutory sections accurately, and prohibitive inference latencies. When querying Indian penal codes, procedural writs, or campus statutes, an incorrect legal reference isn't merely an error—it can be catastrophic.\n\nTo address this in our **Unified Digital Companion (UDC)** research (accepted at **Confluence 2026, Springer LNEE**), we designed a grounded Retrieval-Augmented Generation pipeline specifically tailored for Indian legal QA.\n\n## Hybrid Dense-Sparse Retrieval: Combining BM25 with InLegalBERT\nPure dense embedding retrieval frequently fails when users search for exact statutory provisions (such as `Section 420 IPC` or `Article 21`). Conversely, keyword search (BM25) fails when users ask conceptually framed questions like *“what happens if somebody threatens me online?”*.\n\nWe solved this by establishing a dual-encoder retrieval topology:\n- **Sparse Lexical Indexing**: BM25 inverted index optimized for exact penal codes and procedural terminology.\n- **Dense Semantic Indexing**: Fine-tuned `InLegalBERT` sentence transformer with 768-dimensional embeddings mapped into a high-throughput `FAISS` index.\n\nAt runtime, candidate passages from both streams are fused using Reciprocal Rank Fusion (RRF):\n\n> `RRF_Score(d) = \\sum_{m \\in M} \\frac{1}{k + r_m(d)}`\n\n## Two-Stage Cross-Encoder Reranking\nDense vector similarity measures cosine angle between independent embeddings, meaning it cannot model full cross-attention between the query terms and document passages.\n\nWe inserted a secondary `cross-encoder/ms-marco-MiniLM-L-6-v2` reranker that jointly ingests `(query, passage)` pairs. This eliminated false positives from semantic drift and reduced candidate passages down to the top-3 most authoritative contexts.\n\n## Measurable Results\n- **Grounding Accuracy**: Achieved **82.3%** on the IndicLegalQA benchmark, outperforming naive retrieval baselines by **+31.1%**.\n- **Intent Routing**: Reached **94.1%** accuracy with an F1 score of **0.92**.\n- **Hallucination Rate**: **0.0%** across evaluated statutory queries due to strict extractive grounding gates.\n- **End-to-End Latency**: Averaged **< 530ms**, making real-time interactive public query response practical on standard commodity servers.",
+    "comments": [
+      {
+        "id": 101,
+        "author": "Dr. R. Manna",
+        "comment": "Impressive grounding accuracy on IndicLegalQA. The two-stage cross-encoder approach clearly solves the legal citation precision issue.",
+        "timestamp": 1761850000000
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Zero-Touch Financial Telemetry: Real-Time IMAP Ingestion in ELYRO",
+    "author_name": "K. Sai Uma Shankar",
+    "timestamp": 1761400000000,
+    "image_url": "/assets/project-elyro.jpg",
+    "content": "## Why Manual Expense Tracking Always Fails\nEvery budgeting app asks users to do the impossible: manually input every coffee, grocery run, and UPI payment they make throughout the day. Within three weeks, compliance collapses to near zero.\n\nWith **ELYRO**, my goal was to engineer a zero-touch financial engine: the moment your bank sends a debit alert via email, ELYRO parses the transaction, extracts merchant and amount telemetry, categorizes the line item, and reflects the updated balance in real time.\n\n## Architecture: Persistent IMAP Streaming via IDLE\nTraditional cron polling of email servers creates unnecessary rate-limiting, high latency, and bursty CPU spikes. Instead, ELYRO establishes a long-lived IMAP socket connection utilizing the IMAP `IDLE` protocol via `imapflow`.\n\nWhen a bank sends an alert, the mail server issues an unsolicited event notification. ELYRO's ingestion worker wakes up instantly, fetches the raw MIME payload, and parses the email envelope in under 40 milliseconds.\n\n## Tokenizing Bank Alerts: The AST Parser\nDifferent financial institutions format their transaction emails unpredictably:\n- **HDFC / ICICI**: Table-based transactional receipts with embedded HTML styling.\n- **UPI / PhonePe / GPay**: Flat text templates with dynamic merchant VPA strings (`@okhdfcbank`, `@paytm`).\n- **Credit Card Alerts**: Mixed multi-currency authorizations.\n\nUsing `mailparser` combined with an extensible regex token stream, ELYRO strips promotional banners and extracts four canonical attributes:\n- `Amount` (normalized to INR float)\n- `Merchant / Entity` (normalized via fuzzy dictionary matching)\n- `Transaction Type` (Debit, Credit, Transfer, Refund)\n- `Timestamp` (converted to UTC epoch)\n\n## Lightweight Local Persistence with libSQL & SQLite\nRather than forcing users into expensive cloud database clusters, ELYRO uses `libSQL` / embedded SQLite. This guarantees:\n- **Data Privacy**: Financial records remain strictly on the user's host machine or self-hosted container.\n- **Instant Queries**: Category aggregations, 30-day velocity charts, and balance totals execute in under **4ms**.\n\n## The React 19 & Tailwind v4 UI\nThe frontend was built on **React 19** and **Tailwind CSS v4**, taking advantage of React Actions for optimistic balance updates and smooth micro-interactions. The dashboard renders real-time cash flow velocities without requiring manual page refreshes.",
+    "comments": [
+      {
+        "id": 201,
+        "author": "Fintech Enthusiast",
+        "comment": "The IMAP IDLE socket approach is so much cleaner than battery-draining SMS scrapers or clumsy manual receipt scanning. Great write-up!",
+        "timestamp": 1761480000000
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Spatio-Temporal Video Summarization with 29M-Parameter Attention Fusion",
+    "author_name": "K. Sai Uma Shankar",
+    "timestamp": 1760800000000,
+    "image_url": "/assets/project-videosummarizer.jpg",
+    "content": "## The Problem with Long-Form Video Analysis\nWith the exponential growth of surveillance cameras, lecture recordings, and user-generated media, humans cannot review hours of footage in real time. Naive uniform frame sampling inevitably skips crucial moments or retains dozens of repetitive, static frames.\n\nFor our capstone project at Amrita Vishwa Vidyapeetham, our team built a **29M+ parameter Spatio-Temporal Video Summarization System** capable of automatically distilling long videos into cohesive, representative summaries that preserve narrative context.\n\n## Dual-Stream Feature Extraction\nEffective video summarization requires answering two separate questions simultaneously:\n1. **What is inside each frame?** (Spatial appearance)\n2. **How does action evolve across time?** (Temporal dynamics)\n\n### 1. Spatial Representation (ResNet-50)\nWe employed a pre-trained `ResNet-50` backbone (24M parameters). By truncating the terminal classification head, we extracted dense 2048-dimensional feature vectors representing object geometry, lighting conditions, and scene composition for every candidate frame.\n\n### 2. Temporal Sequence Modeling (Bidirectional LSTM)\nFrames cannot be judged in isolation. A person reaching toward a desk is only meaningful if the subsequent frames show an event occurring. We routed the spatial embeddings into a **Bidirectional LSTM** (4M parameters) that models forward and reverse contextual dependencies across the video sequence.\n\n## Multi-Head Temporal Attention Fusion\nTo decide which frames deserve inclusion in the final summary reel, we implemented a **Multi-Head Self-Attention** module. The attention mechanism assigns an importance score `w_t \\in [0, 1]` to each frame by evaluating its contextual distinctiveness compared to adjacent sequences.\n\nFrames with high importance scores and low mutual visual redundancy are selected using Knapsack dynamic programming under a target summary budget (typically 15%–20% of original duration).\n\n## Async Processing Pipeline in Flask & React\nBecause processing 1080p video is computationally heavy, we decoupled the ingestion API from the model runner using asynchronous chunked background workers in Flask.\n\nUsers receive instant visual progress telemetry (frame extraction → sequence modeling → keyframe assembly) via a React web client, enabling seamless processing across MP4, AVI, MOV, and WebM video formats.",
+    "comments": []
+  }
+]

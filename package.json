@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-blog",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd server && npm install && cd ../client && npm install && npm run build",
+    "postinstall": "npm run build",
+    "start": "node server/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
