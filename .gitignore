@@ -8,3 +8,14 @@ client/dist/
 .env
 .env.*
 server/messages.json
+
+# Legacy Python backend & Old Uploads
+server/app/
+server/run.py
+server/config.py
+server/uploads/*
+!server/uploads/.gitkeep
+client/public/assets/project1.jpg
+client/public/assets/project2.png
+client/public/assets/project3.png
+client/public/assets/profile-full.jpg
