@@ -330,8 +330,34 @@ export const portfolioData = {
       github: "https://github.com/umashankar1735/DeepFake-11",
     },
     {
-      id: "green-harvest",
+      id: "nlp-keyword-extractor",
       number: "07",
+      filterGroup: "AI & Research",
+      category: "NLP & Information Retrieval · KeyBERT / TextRank",
+      title: "Automated Keyword Extraction",
+      subtitle: "Unsupervised Scientific Keyphrase Mining Pipeline",
+      image: "/assets/project-nlp.jpg",
+      visualType: "nlp-extract",
+      metric: "Multi-Model Salience Scoring",
+      description:
+        "Automated NLP keyphrase extraction system developed under Dr. Riyanka Manna at Amrita Vishwa Vidyapeetham, synthesizing statistical TF-IDF/RAKE, graph-based TextRank, and dense KeyBERT embeddings with maximal marginal relevance (MMR) and POS noun-phrase chunking.",
+      caseStudy: {
+        problem:
+          "Manual keyword tagging for unstructured scientific literature is labor-intensive and subjective, while simple frequency algorithms fail to capture semantic centrality or diverse multi-word phrases.",
+        solution:
+          "Engineered an automated Python NLP pipeline combining linguistic candidate filters (POS noun chunking), graph co-occurrence networks (TextRank), and KeyBERT embedding cosine similarity with MMR diversity control.",
+        impact: [
+          "Eliminated duplicate index terms using Maximal Marginal Relevance (MMR) diversity optimization.",
+          "Benchmarked statistical vs. graph-based vs. transformer-based extraction on academic research papers.",
+          "Complete exploratory research notebook and evaluation report archived in public GitHub repository.",
+        ],
+      },
+      tags: ["Python", "KeyBERT", "TextRank", "TF-IDF", "spaCy / NLTK", "MMR"],
+      github: "https://github.com/umashankar1735/automated-keyword-extraction-nlp",
+    },
+    {
+      id: "green-harvest",
+      number: "08",
       filterGroup: "AI & Research",
       category: "Generative AI · Multi-Agent Advisory",
       title: "GreenHarvest AI (AgriGPT)",
@@ -357,7 +383,7 @@ export const portfolioData = {
     },
     {
       id: "fitness-app",
-      number: "08",
+      number: "09",
       filterGroup: "Full-Stack & .NET",
       category: "Full-Stack MERN · University Project",
       title: "Fitness Monitoring Web App",
@@ -382,7 +408,7 @@ export const portfolioData = {
     },
     {
       id: "carbonwise",
-      number: "09",
+      number: "10",
       filterGroup: "AI & Research",
       category: "Sustainability · Streamlit + Firebase",
       title: "CarbonWise",
@@ -407,7 +433,7 @@ export const portfolioData = {
     },
     {
       id: "parametric-curve-fitting",
-      number: "10",
+      number: "11",
       filterGroup: "Systems & ML",
       category: "R&D Mathematical Optimization",
       title: "Parametric Curve Fitting",
@@ -432,7 +458,7 @@ export const portfolioData = {
     },
     {
       id: "led-blinker-isr",
-      number: "11",
+      number: "12",
       filterGroup: "Systems & ML",
       category: "Embedded C · Low-Level Simulation",
       title: "ISR Microcontroller LED Blinker",

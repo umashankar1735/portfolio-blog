@@ -69,6 +69,13 @@ const ARCHITECTURE_FLOWS = {
     { label: 'Frame Score Fusion', sub: 'Logit Aggregation', badge: 'FastAPI /predict/' },
     { label: 'Authenticity Report', sub: 'Real vs Synthetic', badge: 'Verdict' },
   ],
+  'nlp-keyword-extractor': [
+    { label: 'Unstructured Text', sub: 'PDF / Paper Corpus', badge: 'Input Doc' },
+    { label: 'POS Phrase Chunk', sub: 'spaCy / NLTK Filter', badge: '(NN|NNS|JJ)+' },
+    { label: 'Embed & Similarity', sub: 'BERT Sentence Vectors', badge: 'Cosine Angle' },
+    { label: 'Graph / MMR Rerank', sub: 'TextRank + KeyBERT', badge: 'Max Diversity' },
+    { label: 'Ranked Index Terms', sub: 'Extracted Keywords', badge: 'Output Score' },
+  ],
   'green-harvest': [
     { label: 'Farmer Input', sub: 'Crop & Soil Details', badge: 'User Prompt' },
     { label: 'Weather Telemetry', sub: 'Localized Climate API', badge: 'Live Metrics' },
@@ -213,6 +220,34 @@ const ProjectCustomArtwork = ({ visualType, compact }) => {
           {!compact && (
             <p className="text-[11px] font-mono text-cyan-300">
               PyTorch ResNet-18 · Face Wireframe Mesh
+            </p>
+          )}
+        </div>
+      );
+
+    case 'nlp-extract':
+      return (
+        <div className="w-full h-full flex flex-col items-center justify-center gap-2.5 px-4">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono">
+            <span className="px-2.5 py-1 rounded-lg bg-indigo-500/20 border border-indigo-400/40 text-indigo-200">
+              POS Filter
+            </span>
+            <span className="text-cyan-400">→</span>
+            <span className="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-200">
+              KeyBERT + TextRank
+            </span>
+            {!compact && (
+              <>
+                <span className="text-cyan-400">→</span>
+                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">
+                  MMR Ranking
+                </span>
+              </>
+            )}
+          </div>
+          {!compact && (
+            <p className="text-[11px] font-mono text-cyan-300">
+              Information Retrieval · Scientific Keyphrase Mining
             </p>
           )}
         </div>
